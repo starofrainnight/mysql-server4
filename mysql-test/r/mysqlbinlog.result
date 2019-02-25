@@ -1,0 +1,109 @@
+set timestamp=1000000000;
+drop table if exists t1,t2;
+create table t1 (word varchar(20));
+create table t2 (id int auto_increment not null primary key);
+insert into t1 values ("abirvalg");
+insert into t2 values ();
+load data infile '../../std_data/words.dat' into table t1;
+load data infile '../../std_data/words.dat' into table t1;
+load data infile '../../std_data/words.dat' into table t1;
+load data infile '../../std_data/words.dat' into table t1;
+load data infile '../../std_data/words.dat' into table t1;
+load data infile '../../std_data/words.dat' into table t1;
+insert into t1 values ("Alas");
+flush logs;
+
+--- Local --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+use test;
+SET TIMESTAMP=1000000000;
+drop table if exists t1,t2;
+SET TIMESTAMP=1000000000;
+create table t1 (word varchar(20));
+SET TIMESTAMP=1000000000;
+create table t2 (id int auto_increment not null primary key);
+SET TIMESTAMP=1000000000;
+insert into t1 values ("abirvalg");
+SET INSERT_ID=1;
+SET TIMESTAMP=1000000000;
+insert into t2 values ();
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-1-0' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-2-0' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-3-0' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-4-0' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-5-0' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+
+--- Broken LOAD DATA --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+use test;
+SET TIMESTAMP=1000000000;
+insert into t1 values ("Alas");
+
+--- --database --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+SET INSERT_ID=1;
+
+--- --position --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+use test;
+SET TIMESTAMP=1000000000;
+insert into t1 values ("Alas");
+
+--- Remote --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+use test;
+SET TIMESTAMP=1000000000;
+drop table if exists t1,t2;
+SET TIMESTAMP=1000000000;
+create table t1 (word varchar(20));
+SET TIMESTAMP=1000000000;
+create table t2 (id int auto_increment not null primary key);
+SET TIMESTAMP=1000000000;
+insert into t1 values ("abirvalg");
+SET INSERT_ID=1;
+SET TIMESTAMP=1000000000;
+insert into t2 values ();
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-1-1' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-2-1' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-3-1' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-4-1' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+LOAD DATA LOCAL INFILE 'MYSQL_TEST_DIR/var/tmp/words.dat-5-1' INTO TABLE `t1` FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\' LINES TERMINATED BY '\n' STARTING BY '' (word);
+
+--- Broken LOAD DATA --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+use test;
+SET TIMESTAMP=1000000000;
+insert into t1 values ("Alas");
+
+--- --database --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+SET INSERT_ID=1;
+
+--- --position --
+/*!40019 SET @@session.max_insert_delayed_threads=0*/;
+use test;
+SET TIMESTAMP=1000000000;
+insert into t1 values ("Alas");
+flush logs;
+create table t3 (f text character set utf8);
+create table t4 (f text character set cp932);
+flush logs;
+rename table t3 to t03, t4 to t04;
+select HEX(f) from t03;
+HEX(f)
+E382BD
+select HEX(f) from t3;
+HEX(f)
+E382BD
+select HEX(f) from t04;
+HEX(f)
+835C
+select HEX(f) from t4;
+HEX(f)
+835C
+flush logs;
+select * from t5  /* must be (1),(1) */;
+a
+1
+1
+drop table t1, t2, t03, t04, t3, t4, t5;
