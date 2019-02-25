@@ -1,3 +1,21 @@
+MySQL Server 4.1
+
+************************************************************
+
+PURPOSE:
+
+There are new MySQL Server and more advance versions (5, 6, 7, etc), why we
+need this repository (an old version 4)?
+
+Because we have old/mature softwares (We don't have sources, can't modify or
+upgrade and have to use it in our production environment still) depends on this
+version and this version can't build successfully on lastest linux environment
+(Just as Ubuntu 18.04).
+
+So, that's it. At least it will works on Ubuntu 18.04.
+
+************************************************************
+
 This is a release of MySQL, a dual-license SQL database server.
 MySQL is brought to you by the MySQL team at MySQL AB.
 
