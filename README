@@ -14,6 +14,11 @@ version and this version can't build successfully on lastest linux environment
 
 So, that's it. At least it will works on Ubuntu 18.04.
 
+NOTICE:
+
+You must build this project with bison 2.x (it does not support latest 3.x
+series)
+
 ************************************************************
 
 This is a release of MySQL, a dual-license SQL database server.
