@@ -1082,3 +1082,5 @@ autom4te.cache
 mysql-test/mysql-test-run-shell
 ylwrap
 mysql-test/var
+autom4te.cache
+
